@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Parking Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1><i class="fas fa-parking"></i> SmartPark</h1>
+            <div class="nav-links">
+                <a href="#" onclick="showPage('dashboard')" class="nav-link active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                <a href="#" onclick="showPage('bookings')" class="nav-link"><i class="fas fa-list"></i> My Bookings</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Page -->
+    <div id="dashboard" class="page active">
+        <div class="container">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-parking-circle"></i>
+                    <div>
+                        <h3 id="totalSlots">90</h3>
+                        <p>Total Slots</p>
+                    </div>
+                </div>
+                <div class="stat-card green">
+                    <i class="fas fa-check-circle"></i>
+                    <div>
+                        <h3 id="availableSlots">45</h3>
+                        <p>Available</p>
+                    </div>
+                </div>
+                <div class="stat-card red">
+                    <i class="fas fa-car"></i>
+                    <div>
+                        <h3 id="occupiedSlots">35</h3>
+                        <p>Occupied</p>
+                    </div>
+                </div>
+                <div class="stat-card blue">
+                    <i class="fas fa-rupee-sign"></i>
+                    <div>
+                        <h3 id="revenue">₹2,450</h3>
+                        <p>Total Revenue</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parking Grid & Chart -->
+            <div class="grid-container">
+                <div class="parking-grid-section">
+                    <h2>Parking Slots <span id="selectedSlot"></span></h2>
+                    <div id="parkingGrid" class="parking-grid"></div>
+                </div>
+                <div class="chart-section">
+                    <h3>Hourly Occupancy</h3>
+                    <canvas id="occupancyChart" width="400" height="200"></canvas>
+                    <div class="load-indicator">
+                        <span class="load-low">Low (0-30%)</span>
+                        <span class="load-medium">Medium (31-70%)</span>
+                        <span class="load-high">High (71-100%)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- My Bookings Page -->
+    <div id="bookings" class="page">
+        <div class="container">
+            <h2>My Bookings</h2>
+            <div id="bookingsList" class="bookings-list"></div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Book Parking Slot</h2>
+            <form id="bookingForm">
+                <input type="hidden" id="selectedSlotId">
+                <div class="form-group">
+                    <label>Slot Number:</label>
+                    <input type="text" id="slotNumber" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Vehicle Number:</label>
+                    <input type="text" id="vehicleNumber" required placeholder="DL01AB1234">
+                </div>
+                <div class="form-group">
+                    <label>Vehicle Type:</label>
+                    <select id="vehicleType" required>
+                        <option value="car">Car</option>
+                        <option value="bike">Bike</option>
+                        <option value="suv">SUV</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Start Time:</label>
+                    <input type="datetime-local" id="startTime" required>
+                </div>
+                <div class="form-group">
+                    <label>End Time:</label>
+                    <input type="datetime-local" id="endTime" required>
+                </div>
+                <div class="form-group">
+                    <label>Price: ₹<span id="calculatedPrice">0</span></label>
+                </div>
+                <button type="submit">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
